@@ -1,0 +1,16 @@
+project:
+    name: neru-passport-login-cookie-session
+instance:
+    name: dev
+    runtime: nodejs16
+    region: aws.apse1
+    entrypoint: [node, index.js]
+    application-id: 264f06bf-5a1d-475f-a362-14d63965f6b2
+    configurations:
+        section1:
+            key1: this is an example
+        section2:
+            key2: 42
+debug:
+    name: debug
+    entrypoint: [nodemon, --inspect, index.js]
