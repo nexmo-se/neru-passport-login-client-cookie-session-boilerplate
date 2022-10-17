@@ -18,6 +18,12 @@
 						<h1 style="margin-top: 20px; margin-bottom: 10px; color: rgb(51,51,51);">Sign in Using your Vonage API Key and Secret Key</h1>
 					</div>
 
+					<section class="messages">
+						<% messages.forEach(function(message) { %>
+						<p><%= message %></p>
+						<% }); %>
+					</section>
+
 					<div class="formbuilder-text form-group field-application-id-field">
 						<label for="application-id-field" class="formbuilder-text-label">API Key<span
 								class="formbuilder-required">*</span></label>

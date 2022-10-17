@@ -5,6 +5,7 @@ cookieParser = require('cookie-parser');
 csrf = require('csurf');
 utils = require('utils');
 cors = require('cors');
+flash = require('express-flash');
 bodyParser = require('body-parser');
 LocalStrategy = require('passport-local');
 passport = require('passport'); //note, passport needs to be 0.5.3 for cookie-session to work
@@ -35,7 +36,7 @@ passport.use(new LocalStrategy(function asyncverify(username, password, cb) {
           //Valid API Secret, Let's go
           return cb(null, { id: "0", username: "Vonage User" })
       } else {
-          return cb(null, false, { message: 'Incorrect Application ID or API Key.' })
+          return cb(null, false, { message: 'Incorrect Api Key ID or Secret.' })
       }
   });
 }));
@@ -56,6 +57,7 @@ passport.deserializeUser(function (user, cb) {
 
 //use ejs for templating
 app.set('view engine', 'ejs');
+app.use(flash());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -97,12 +99,13 @@ app.get('/protected', csrf(), ensureLoggedIn("./login"), async (req, res, next) 
 
 
 app.get('/login', csrf(), function (req, res, next) {
-    res.render(views_path + "passport_login.ejs", {csrfToken: req.csrfToken()})
+    res.render(views_path + "passport_login.ejs", {csrfToken: req.csrfToken(), messages: req.flash("error")})
 });
 
 app.post('/login', csrf(),  passport.authenticate('local', {
     successRedirect: "./protected",
-    failureRedirect: './login'
+    failureRedirect: './login',
+    failureFlash: true
 }));
 
 //Logout for cookie session. We have to clear the cookie
