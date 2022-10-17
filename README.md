@@ -1,7 +1,7 @@
 ## Neru Passport Local Stratefy Authentication using Client Cookie Sessions
 
 This demo shows how to create a passport based authentication using client session cookies.
-Neru, as stated by their devs, is stateless. Any session stored server side can disapear anytime
+Neru, as stated by their devs, is stateless. Any session stored server side can disapear anytime. Using client cookie sessions fixes this.
 
 Just run and login.
 
